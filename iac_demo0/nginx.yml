@@ -12,22 +12,14 @@
     yum:
       name: nginx
       state: present
-  
-  - name: Create directory
-    file:
-      path: /etc/nginx/mysite/
-      state: directory
-  
+
+  - name: Cleanup Default Website Directory
+    shell: rm -rf /usr/share/nginx/html/* 
 
   - name: Insert Index Page
     copy:
       src: index.html
-      dest: /etc/nginx/mysite/index.html
-
-  - name: Copy Nginx Config
-    copy: 
-      src: mysite.cfg
-      dest: /etc/nginx/mysite/mysite.cfg
+      dest: /usr/share/nginx/html/index.html
 
   - name: Start NGiNX
     service:
